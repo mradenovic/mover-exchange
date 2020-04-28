@@ -1,3 +1,4 @@
+rules_version = '2';
 // Only authenticated users can read or write to the bucket
 service firebase.storage {
   match /b/{bucket}/o {
