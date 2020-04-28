@@ -1,0 +1,44 @@
+{
+  "projects": {
+    "default": "mover-exchange",
+    "master": "mover-exchange-dev",
+    "prod": "mover-exchange"
+  },
+  "ci": {
+    "copyVersion": true,
+    "createConfig": {
+      "master": {
+        "env": "staging",
+        "firebase": {
+          "apiKey": "AIzaSyD4e7pieYJRsW4o7n6iQSnnDSaR01J6ydQ",
+          "authDomain": "mover-exchange-dev.firebaseapp.com",
+          "databaseURL": "https://mover-exchange-dev.firebaseio.com",
+          "projectId": "mover-exchange-dev",
+          "storageBucket": "mover-exchange-dev.appspot.com",
+          "messagingSenderId": "1085228648033",
+          "appId": "1:1085228648033:web:8fa0d27eea75a5f2324c20",
+          "measurementId": "G-Y0CEEVVR0B"
+        },
+        "sentryDsn": "",
+        "segmentId": "",
+        "publicVapidKey": "BOROSd-4taxGkKhKgBJarEhByhgEp1ZDmahcZlPO_RQbkwbnVwXmfn7YzfVpXyya9gK1GTBVKY5hpWM-c9U-PsM"
+      },
+      "prod": {
+        "env": "production",
+        "firebase": {
+          "apiKey": "AIzaSyDIPAWWnfXNduCf_1rn181mrAKGSOV2Huc",
+          "authDomain": "mover-exchange.firebaseapp.com",
+          "databaseURL": "https://mover-exchange.firebaseio.com",
+          "projectId": "mover-exchange",
+          "storageBucket": "mover-exchange.appspot.com",
+          "messagingSenderId": "1073060264867",
+          "measurementId": "G-PJS7GTJFHK",
+          "appId": "1:1073060264867:web:3c8ce78e188dbd2444f816"
+        },
+        "sentryDsn": "",
+        "segmentId": "",
+        "publicVapidKey": "BJK31l8Fj5c4Smw3fLsVmT-jUXh7yF0iGhDmu33REJipBo0z58za04MVDdz_Lr-Y6spqYvyAY552fefJ9sMpSsI"
+      }
+    }
+  }
+}

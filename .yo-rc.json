@@ -1,0 +1,27 @@
+{
+  "generator-react-firebase": {
+    "promptValues": {
+      "githubUser": "mradenovic",
+      "firebaseName": "mover-exchange",
+      "firebaseKey": "",
+      "includeRedux": true,
+      "includeFirestore": true,
+      "otherFeatures": [
+        "Continuous Integration config",
+        "Firebase Cloud Messaging",
+        "Firebase Functions (with ESNext support)",
+        "Tests for Firebase Functions (Mocha/Chai or Jest)",
+        "Firebase Analytics",
+        "Segment.io Analytics",
+        "Error Tracking (Sentry.io)",
+        "Client Side Error Reporting (Stackdriver)"
+      ],
+      "functionsTestTool": "jest",
+      "messagingSenderId": "",
+      "measurementId": "",
+      "appId": "",
+      "ciProvider": "githubActions",
+      "deployTo": "firebase"
+    }
+  }
+}
