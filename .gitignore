@@ -16,5 +16,3 @@ src/config.js
 functions/etc
 functions/dist
 functions/.runtimeconfig.json
-functions/coverage
-functions/.nyc_output

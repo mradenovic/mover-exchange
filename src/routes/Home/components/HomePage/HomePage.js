@@ -8,6 +8,7 @@ import { ACCOUNT_PATH, LIST_PATH } from 'constants/paths'
 import styles from './HomePage.styles'
 
 const reactRouterUrl = 'https://github.com/ReactTraining/react-router'
+const reactfireUrl = 'https://github.com/FirebaseExtended/reactfire'
 
 const useStyles = makeStyles(styles)
 
@@ -38,11 +39,17 @@ function Home() {
                 </a>
               </span>
               <span> and </span>
-              <a
-                href="https://github.com/mjrussell/redux-auth-wrapper"
-                target="_blank"
-                rel="noopener noreferrer">
-                redux-auth-wrapper
+              <pre>
+                <a
+                  href={`${reactfireUrl}/blob/master/docs/reference.md#AuthCheck`}
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  AuthCheck
+                </a>
+              </pre>
+              from
+              <a href={reactfireUrl} target="_blank" rel="noopener noreferrer">
+                reactfire
               </a>
             </div>
           </Grid>

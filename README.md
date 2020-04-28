@@ -1,6 +1,5 @@
 # mover-exchange
 
-
 [![Build Status][build-status-image]][build-status-url]
 [![License][license-image]][license-url]
 [![Code Style][code-style-image]][code-style-url]
@@ -30,19 +29,22 @@
    ```js
    const firebase = {
      // Config from Firebase console
-   }
+   };
 
    // Overrides for for react-redux-firebase/redux-firestore config
-   export const reduxFirebase = {}
+   export const reduxFirebase = {};
 
-   export const segmentId = '<- Segment ID ->'
+   export const segmentId = "<- Segment ID ->";
+
+   export const publicVapidKey = "<- publicVapidKey from Firebase console ->";
 
    export default {
      env,
      firebase,
      reduxFirebase,
-     segmentId
-   }
+     publicVapidKey,
+     segmentId,
+   };
    ```
 
 1. Start Development server: `npm start`
@@ -50,13 +52,13 @@
 While developing, you will probably rely mostly on `npm start`; however, there are additional scripts at your disposal:
 
 | `npm run <script>` | Description                                                                                                             |
-| --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `start`                                                         | Serves your app at `localhost:3000` with automatic refreshing and hot module replacement                                |
-| `start:dist`                                                    | Builds the application to `./dist` then serves at `localhost:3000` using firebase hosting emulator                      |
-| `start:emulate`                                                 | Same as `start`, but pointed to database emulators (make sure to call `emulators` first to boot up emulators)           |
-| `build`                                                         | Builds the application to `./dist`                                                                                      |  |
-| `lint`                                                          | [Lints](http://stackoverflow.com/questions/8503559/what-is-linting) the project for potential errors                    |
-| `lint:fix`                                                      | Lints the project and [fixes all correctable errors](http://eslint.org/docs/user-guide/command-line-interface.html#fix) |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| `start`            | Serves your app at `localhost:3000` with automatic refreshing and hot module replacement                                |
+| `start:dist`       | Builds the application to `./dist` then serves at `localhost:3000` using firebase hosting emulator                      |
+| `start:emulate`    | Same as `start`, but pointed to database emulators (make sure to call `emulators` first to boot up emulators)           |
+| `build`            | Builds the application to `./dist`                                                                                      |  |
+| `lint`             | [Lints](http://stackoverflow.com/questions/8503559/what-is-linting) the project for potential errors                    |
+| `lint:fix`         | Lints the project and [fixes all correctable errors](http://eslint.org/docs/user-guide/command-line-interface.html#fix) |
 
 [Husky](https://github.com/typicode/husky) is used to enable `prepush` hook capability. The `prepush` script currently runs `eslint`, which will keep you from pushing if there is any lint within your code. If you would like to disable this, remove the `prepush` script from the `package.json`.
 
@@ -154,6 +156,7 @@ export default {
 With this setting, the name of the file (called a "chunk") is defined as part of the code as well as a loading spinner showing while the bundle file is loading.
 
 More about how routing works is available in [the react-router-dom docs](https://reacttraining.com/react-router/web/guides/quick-start).
+
 ## Deployment
 
 Build code before deployment by running `npm run build`. There are multiple options below for types of deployment, if you are unsure, checkout the Firebase section.

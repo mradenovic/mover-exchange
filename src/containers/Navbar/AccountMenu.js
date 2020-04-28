@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useFirebase } from 'react-redux-firebase'
+import { useFirebaseApp } from 'reactfire'
 import { useHistory } from 'react-router-dom'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -18,7 +18,7 @@ function AccountMenu() {
   const classes = useStyles()
   const [anchorEl, setMenu] = useState(null)
   const history = useHistory()
-  const firebase = useFirebase()
+  const firebase = useFirebaseApp()
 
   function closeAccountMenu() {
     setMenu(null)
@@ -29,7 +29,7 @@ function AccountMenu() {
   function handleLogout() {
     closeAccountMenu()
     // redirect to '/' handled by UserIsAuthenticated HOC
-    return firebase.logout()
+    return firebase.auth().signOut()
   }
   function goToAccount() {
     closeAccountMenu()

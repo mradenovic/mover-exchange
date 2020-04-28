@@ -4,12 +4,12 @@
 importScripts('https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js')
 importScripts('https://www.gstatic.com/firebasejs/7.3.0/firebase-messaging.js')
 
-const PROD_MESSAGING_ID = ''
+const PROD_MESSAGING_ID = '1085228648033'
 const STAGE_MESSAGING_ID = '' // TODO: Set your staging messaging ID here
 /* eslint-disable prettier/prettier */
 firebase.initializeApp({
   // Use prod id if stage id not defined or running on prod Firebase hosting
-  messagingSenderId: !STAGE_MESSAGING_ID || self.location.hostname.includes('mover-exchange') // eslint-disable-line no-undef
+  messagingSenderId: !STAGE_MESSAGING_ID || self.location.hostname.includes('mover-exchange-dev') // eslint-disable-line no-undef
     ? PROD_MESSAGING_ID
     : STAGE_MESSAGING_ID
 })
@@ -25,7 +25,7 @@ messaging.setBackgroundMessageHandler(function (payload) {
   )
   
   // Customize default notification here
-  const notificationTitle = 'Mover Exchange'
+  const notificationTitle = 'Mover-exchange'
   const notificationOptions = {
     body: 'Background Message body.',
     icon: '/firebase-logo.png'

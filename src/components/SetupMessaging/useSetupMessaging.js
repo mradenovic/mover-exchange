@@ -1,5 +1,5 @@
-import firebase from 'firebase/app'
-import 'firebase/messaging'
+import { useMessaging, useUser, useFirestore } from 'reactfire'
+
 import { useNotifications } from 'modules/notification'
 import { USERS_COLLECTION } from 'constants/firebasePaths'
 
@@ -10,10 +10,10 @@ let messagingInitialized = false
  * messaging token to the user object within Firestore.
  */
 export default function useSetupMessaging() {
-  const messaging = firebase.messaging()
-  const firestore = firebase.firestore()
-  const { FieldValue } = firebase.firestore
-  const user = firebase.auth().currentUser
+  const messaging = useMessaging()
+  const firestore = useFirestore()
+  const { FieldValue } = useFirestore
+  const user = useUser()
   const { showSuccess } = useNotifications()
 
   /**

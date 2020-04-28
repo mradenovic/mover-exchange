@@ -1,45 +1,42 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { FirebaseAppProvider, SuspenseWithPerf } from 'reactfire'
 import { BrowserRouter as Router } from 'react-router-dom'
-import { Provider } from 'react-redux'
-import firebase from 'firebase/app'
-import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
-import { createFirestoreInstance } from 'redux-firestore'
 import NotificationsProvider from 'modules/notification/NotificationsProvider'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import SetupMessaging from 'components/SetupMessaging'
 import ThemeSettings from '../../theme'
-import { defaultRRFConfig } from '../../defaultConfig'
-import initializeFirebase from '../../initializeFirebase'
+import * as config from '../../config'
 
 const theme = createMuiTheme(ThemeSettings)
 
-initializeFirebase()
+const { firebase: firebaseConfig } = config
 
-function App({ routes, store }) {
+// Enable Real Time Database emulator if environment variable is set
+if (process.env.REACT_APP_FIREBASE_DATABASE_EMULATOR_HOST) {
+  firebaseConfig.databaseURL = `http://${process.env.REACT_APP_FIREBASE_DATABASE_EMULATOR_HOST}?ns=${firebaseConfig.projectId}`
+  console.debug(`RTDB emulator enabled: ${firebaseConfig.databaseURL}`) // eslint-disable-line no-console
+}
+
+function App({ routes }) {
   return (
     <MuiThemeProvider theme={theme}>
-      <Provider store={store}>
+      <FirebaseAppProvider firebaseConfig={firebaseConfig} initPerformance>
         <NotificationsProvider>
-          <ReactReduxFirebaseProvider
-            firebase={firebase}
-            config={defaultRRFConfig}
-            dispatch={store.dispatch}
-            createFirestoreInstance={createFirestoreInstance}>
-            <>
-              <Router>{routes}</Router>
+          <>
+            <Router>{routes}</Router>
+            <SuspenseWithPerf traceId="load-messaging">
               <SetupMessaging />
-            </>
-          </ReactReduxFirebaseProvider>
+            </SuspenseWithPerf>
+          </>
         </NotificationsProvider>
-      </Provider>
+      </FirebaseAppProvider>
     </MuiThemeProvider>
   )
 }
 
 App.propTypes = {
-  routes: PropTypes.object.isRequired,
-  store: PropTypes.object.isRequired
+  routes: PropTypes.object.isRequired
 }
 
 export default App

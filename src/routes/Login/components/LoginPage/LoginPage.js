@@ -1,11 +1,12 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { useFirebase } from 'react-redux-firebase'
+import { Link, useHistory } from 'react-router-dom'
+import firebase from 'firebase/app' // imported for auth provider
+import { useAuth } from 'reactfire'
 import Paper from '@material-ui/core/Paper'
 import { makeStyles } from '@material-ui/core/styles'
 import GoogleButton from 'react-google-button'
-import { SIGNUP_PATH } from 'constants/paths'
-import { useNotifications } from 'modules/notification'
+import { SIGNUP_PATH, LIST_PATH } from 'constants/paths'
+import useNotifications from 'modules/notification/useNotifications'
 import LoginForm from '../LoginForm'
 import styles from './LoginPage.styles'
 
@@ -13,27 +14,31 @@ const useStyles = makeStyles(styles)
 
 function LoginPage() {
   const classes = useStyles()
-  const firebase = useFirebase()
+  const auth = useAuth()
+  const history = useHistory()
   const { showError } = useNotifications()
 
-  function onSubmitFail(formErrs, dispatch, err) {
-    return showError(formErrs ? 'Form Invalid' : err.message || 'Error')
-  }
+  auth.onAuthStateChanged((auth) => {
+    if (auth) {
+      history.replace(LIST_PATH)
+    }
+  })
 
   function googleLogin() {
-    return firebase
-      .login({ provider: 'google', type: 'popup' })
-      .catch((err) => showError(err.message))
+    const provider = new firebase.auth.GoogleAuthProvider()
+    return auth.signInWithPopup(provider).catch((err) => showError(err.message))
   }
 
   function emailLogin(creds) {
-    return firebase.login(creds).catch((err) => showError(err.message))
+    return auth
+      .signInWithEmailAndPassword(creds.email, creds.password)
+      .catch((err) => showError(err.message))
   }
 
   return (
     <div className={classes.root}>
       <Paper className={classes.panel}>
-        <LoginForm onSubmit={emailLogin} onSubmitFail={onSubmitFail} />
+        <LoginForm onSubmit={emailLogin} />
       </Paper>
       <div className={classes.orLabel}>or</div>
       <div className={classes.providers}>

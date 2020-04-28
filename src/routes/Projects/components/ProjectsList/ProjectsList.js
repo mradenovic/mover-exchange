@@ -1,14 +1,7 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import {
-  useFirestore,
-  useFirestoreConnect,
-  isLoaded,
-  isEmpty
-} from 'react-redux-firebase'
-import { useSelector } from 'react-redux'
+import { useFirestore, useUser, useFirestoreCollectionData } from 'reactfire'
 import { useNotifications } from 'modules/notification'
-import LoadingSpinner from 'components/LoadingSpinner'
 import ProjectTile from '../ProjectTile'
 import NewProjectTile from '../NewProjectTile'
 import NewProjectDialog from '../NewProjectDialog'
@@ -18,34 +11,31 @@ const useStyles = makeStyles(styles)
 
 function useProjectsList() {
   const { showSuccess, showError } = useNotifications()
+  // Get current user (loading handled by Suspense in ProjectsList)
+  const auth = useUser()
+  // Create a ref for projects owned by the current user
   const firestore = useFirestore()
+  const { FieldValue, FieldPath } = useFirestore
 
-  // Get auth from redux state
-  const auth = useSelector(({ firebase: { auth } }) => auth)
+  const projectsRef = firestore
+    .collection('projects')
+    .where('createdBy', '==', auth && auth.uid)
+    .orderBy(FieldPath.documentId())
 
-  useFirestoreConnect([
-    {
-      collection: 'projects',
-      where: ['createdBy', '==', auth.uid]
-    }
-  ])
-
-  // Get projects from redux state
-  const projects = useSelector(({ firestore: { ordered } }) => ordered.projects)
+  // Query for projects (loading handled by Suspense in ProjectsList)
+  const projects = useFirestoreCollectionData(projectsRef, { idField: 'id' })
 
   // New dialog
   const [newDialogOpen, changeDialogState] = useState(false)
   const toggleDialog = () => changeDialogState(!newDialogOpen)
 
   function addProject(newInstance) {
-    if (!auth.uid) {
-      return showError('You must be logged in to create a project')
-    }
     return firestore
-      .add('projects', {
+      .collection('projects')
+      .add({
         ...newInstance,
         createdBy: auth.uid,
-        createdAt: firestore.FieldValue.serverTimestamp()
+        createdAt: FieldValue.serverTimestamp()
       })
       .then(() => {
         toggleDialog()
@@ -70,11 +60,6 @@ function ProjectsList() {
     toggleDialog
   } = useProjectsList()
 
-  // Show spinner while projects are loading
-  if (!isLoaded(projects)) {
-    return <LoadingSpinner />
-  }
-
   return (
     <div className={classes.root}>
       <NewProjectDialog
@@ -84,7 +69,7 @@ function ProjectsList() {
       />
       <div className={classes.tiles}>
         <NewProjectTile onClick={toggleDialog} />
-        {!isEmpty(projects) &&
+        {projects &&
           projects.map((project, ind) => {
             return (
               <ProjectTile

@@ -22,7 +22,7 @@ function NavbarWithoutAuth({ children, brandPath }) {
           to={brandPath || '/'}
           className={classes.brand}
           data-test="brand">
-          Mover Exchange
+          Mover-exchange
         </Typography>
         <div className={classes.flex} />
         {children}

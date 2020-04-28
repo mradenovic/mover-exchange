@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
-import { useFirestore } from 'react-redux-firebase'
+import { useFirestore } from 'reactfire'
 import Paper from '@material-ui/core/Paper'
 import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
@@ -25,7 +25,8 @@ function ProjectTile({ name, projectId, showDelete }) {
 
   function deleteProject() {
     return firestore
-      .delete(`projects/${projectId}`)
+      .doc(`projects/${projectId}`)
+      .delete()
       .then(() => showSuccess('Project deleted successfully'))
       .catch((err) => {
         console.error('Error:', err) // eslint-disable-line no-console

@@ -16,7 +16,6 @@
     "functions:serve": "npm run serve --prefix functions",
     "functions:watch": "npm run watch --prefix functions",
     "functions:build": "npm run build --prefix functions",
-    "functions:test": "npm run test --prefix functions",
     "emulators": "firebase emulators:start --only firestore,database",
     "emulators:all": "firebase emulators:start --only firestore,database,hosting",
     "lint": "eslint .",
@@ -43,15 +42,9 @@
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-google-button": "^0.7.0",
-    "react-redux": "^7.1.1",
-    "react-redux-firebase": "^3.1.2",
     "react-hook-form": "^5.2.0",
     "react-router-dom": "^5.1.2",
-    "recompose": "^0.30.0",
-    "redux": "^4.0.4",
-    "redux-auth-wrapper": "^2.1.0",
-    "redux-firestore": "^0.11.0",
-    "redux-thunk": "^2.3.0"
+    "reactfire": "^2.0.3"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",

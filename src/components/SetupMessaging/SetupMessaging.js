@@ -1,6 +1,5 @@
 import React from 'react'
-import firebase from 'firebase/app'
-import 'firebase/messaging'
+import { useMessaging, useUser } from 'reactfire'
 import useSetupMessaging from './useSetupMessaging'
 
 function LoadMessaging() {
@@ -10,8 +9,8 @@ function LoadMessaging() {
 }
 
 function SetupMessaging() {
-  const user = firebase.auth().currentUser
-  const { isSupported } = firebase.messaging
+  const user = useUser()
+  const { isSupported } = useMessaging
   // Render nothing if user is not logged in or if messaging is not supported
   if (!user || !user.uid || !isSupported()) {
     return null

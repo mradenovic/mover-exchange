@@ -19,12 +19,7 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "npm run build && firebase functions:log",
-    "emulators": "firebase emulators:start --only database,firestore",
-    "test": "firebase emulators:exec --only firestore,database \"npm run test:base\"",
-    "test:cov": "firebase emulators:exec --only firestore,database \"npm run test:cov:base\"",
-    "test:base": "cross-env FIRESTORE_EMULATOR_HOST=localhost:$(cat ../firebase.json | jq '.emulators.firestore.port') FIREBASE_DATABASE_EMULATOR_HOST=localhost:$(cat ../firebase.json | jq '.emulators.database.port') jest ./src/**/*.spec.js --config jest.config.js",
-    "test:cov:base": "nyc --reporter=lcov npm run test:base",
-    "test:watch": "npm test -- --watch"
+    "emulators": "firebase emulators:start --only database,firestore"
   },
   "dependencies": {
     "firebase-admin": "^8.11.0",
@@ -36,8 +31,6 @@
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
-    "@babel/register": "^7.9.0",
-    "@firebase/testing": "^0.19.2",
     "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-module-resolver": "^4.0.0",
     "cross-env": "^7.0.2",
@@ -55,8 +48,6 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^3.0.0",
     "eslint-plugin-standard": "^4.0.1",
-    "firebase-functions-test": "^0.2.1",
-    "jest": "^25.1.0",
     "prettier": "^2.0.2",
     "rimraf": "^3.0.2"
   }
