@@ -202,7 +202,7 @@ For more options on CI settings checkout the [firebase-ci docs](https://github.c
 [climate-url]: https://codeclimate.com/github/mradenovic/mover-exchange
 [coverage-image]: https://img.shields.io/codeclimate/coverage/github/mradenovic/mover-exchange.svg?style=flat-square
 [coverage-url]: https://codeclimate.com/github/mradenovic/mover-exchange
-[license-image]: https://img.shields.io/npm/l/mover-exchange.svg?style=flat-square
+[license-image]: https://img.shields.io/github/license/mradenovic/mover-exchange
 [license-url]: https://github.com/mradenovic/mover-exchange/blob/master/LICENSE
 [code-style-image]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square
 [code-style-url]: http://standardjs.com/
